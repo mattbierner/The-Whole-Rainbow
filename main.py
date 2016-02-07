@@ -52,7 +52,7 @@ def initial_sesion(force_update=False):
 
     user_data = load_user_data();
     session = instagram.InstagramSession(session=s, guid=user_data['guid'], user_agent=user_data['user_agent'])
-    save_user_data(session.guid, session.usage_agent)
+    save_user_data(session.guid, session.user_agent)
     if force_update or not os.path.isfile(COOKIE_FILE):
         if not session.login(username, password):
             return None
