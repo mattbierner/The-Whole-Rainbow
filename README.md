@@ -12,7 +12,7 @@ I hope not. Their public API lacks the ability to upload images (WTF), so this s
 This is a fun little project that shouldn't bother anyone and improves the community. Just in case however, I recommend using a burner account if you plan on using the scripts found in this repo. If @thewholerainbow suddenly stops working, most likely someone at Instagram just hates rainbows.
 
 # Running
-If you notice that the @thewholerainbow has stopped uploading, feel free to use these scripts to continue its mission. The uploads are also tagged with `#whole🌈` plus `#HEX_COLOR` so you can track what has been uploaded so far instead of starting from scratch.
+If you notice that the @thewholerainbow has stopped uploading, feel free to use these scripts to continue its mission. The uploads are also tagged with `#whole🌈`, `#HEX_COLOR` so you can track what has been uploaded so far instead of starting from scratch.
 
 The main logic is `main.py`. When run, the script uploads a single color and then updates some persisted data and exits.
 
