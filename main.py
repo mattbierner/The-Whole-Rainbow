@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
+import sys
 from PIL import Image
 import instagram
 from cookielib import LWPCookieJar

@@ -34,7 +34,7 @@ Then just run the script, `$ python main.py`. The current (to be uploaded) color
 Run the script using cron to upload all the rainbow. Here's the config to run once every five minutes:
 
 ```
-*/5 * * * * /usr/bin/python thewholerainbow/main.py
+*/5 * * * * /usr/bin/python thewholerainbow/main.py "USER_NAME" "PASSWORD"
 ```
 
 # Credits
