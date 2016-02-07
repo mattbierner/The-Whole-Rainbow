@@ -69,6 +69,8 @@ class InstagramSession:
         )
 
         r = self.session.post("https://instagram.com/api/v1/accounts/login/", payload)
+        if r.status_code != 200:
+            print("could not login", r.status_code, r.text)
         r_json = r.json()
         print(r_json)
 
@@ -113,6 +115,8 @@ class InstagramSession:
         )
 
         r = self.session.post("https://instagram.com/api/v1/media/configure/", payload)
+        if r.status_code != 200 or r.status_code != 201:
+            print("could not post", r.status_code, r.text)
         r_json = r.json()
         print(r_json)
 
