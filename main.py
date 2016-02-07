@@ -39,9 +39,8 @@ def initial_sesion(force_update=False):
         s.cookies.load(ignore_discard=True)
     return instagram.InstagramSession(session=s)
 
-
 def int_rgb_tuple(num):
-    return (num & 0xff, (num >> 8) & 0xff, (num >> 16) & 0xff)
+    return ((num >> 16) & 0xff, (num >> 8) & 0xff, num & 0xff)
 
 def generate_image(color):
     """Create a solid image of color"""
