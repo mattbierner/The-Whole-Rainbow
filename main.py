@@ -27,7 +27,7 @@ password = None
 if len(sys.argv) > 2:
     password = sys.argv[2]
 else:
-    os.environ.get('INSTAGRAM_USER_PASSWORD')
+    password = os.environ.get('INSTAGRAM_USER_PASSWORD')
 
 
 def initial_sesion(force_update=False):
