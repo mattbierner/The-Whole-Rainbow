@@ -15,15 +15,20 @@ INITIAL_COLOR = 0x0
 MAX_COLOR = 0xffffff
 
 # Disable actual uploads
-DEBUG = False
+DEBUG = True
 
-username = os.environ.get('INSTAGRAM_USER_ID')
-if not username:
+username = None
+if len(sys.argv) > 2:
     username = sys.argv[1]
+else:
+    username = os.environ.get('INSTAGRAM_USER_ID')
 
-password = os.environ.get('INSTAGRAM_USER_PASSWORD')
-if not password:
+password = None
+if len(sys.argv) > 2:
     password = sys.argv[2]
+else:
+    os.environ.get('INSTAGRAM_USER_PASSWORD')
+
 
 def initial_sesion(force_update=False):
     """Get Instagram session"""
