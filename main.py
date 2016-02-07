@@ -12,7 +12,7 @@ ROOT = os.path.dirname(os.path.realpath(__file__))
 IMAGE_FILE = os.path.join(ROOT, 'color.jpg')
 DATA_FILE = os.path.join(ROOT, 'color.data')
 USER_FILE = os.path.join(ROOT, 'user.json')
-COOKIE_FILE = os.path.join(ROOT, 'cookiejar)
+COOKIE_FILE = os.path.join(ROOT, 'cookiejar')
 
 INITIAL_COLOR = 0x0
 MAX_COLOR = 0xffffff
