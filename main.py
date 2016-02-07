@@ -15,7 +15,7 @@ INITIAL_COLOR = 0x0
 MAX_COLOR = 0xffffff
 
 # Disable actual uploads
-DEBUG = True
+DEBUG = False
 
 username = None
 if len(sys.argv) > 2:
