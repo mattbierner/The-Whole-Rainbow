@@ -1,13 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import base64
 from PIL import Image
-import urllib
 import instagram
 from cookielib import LWPCookieJar
 import requests
-import time
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
 IMAGE_FILE = os.path.join(ROOT, 'color.jpg')
