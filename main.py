@@ -17,7 +17,12 @@ MAX_COLOR = 0xffffff
 DEBUG = False
 
 username = os.environ.get('INSTAGRAM_USER_ID')
+if not username:
+    username = sys.argv[1]
+
 password = os.environ.get('INSTAGRAM_USER_PASSWORD')
+if not password:
+    password = sys.argv[2]
 
 def initial_sesion(force_update=False):
     """Get Instagram session"""
