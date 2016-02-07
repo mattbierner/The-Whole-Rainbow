@@ -70,7 +70,7 @@ def post_the_rainbow(start_color, session):
         print("Out of rainbow")
         return
 
-    caption = "#{0:06x} #thewholerainbow".format(color)
+    caption = "#{0:06x} #wholerainbow".format(color)
     image_file = generate_image_file(color)
 
     if not DEBUG:
@@ -80,6 +80,7 @@ def post_the_rainbow(start_color, session):
             return
         if not session.configure_photo(media_id, caption):
             print("Error posting", color)
+            return
 
     color = color + 1
     write_color_data(color)
