@@ -1,4 +1,4 @@
-# The Whole Rainbow
+# whole🌈
 Script that uploads an image of every RGB color to Instagram. Configured to upload a new color every five minutes, slowly working its way through all 16,777,216 24bit RGB colors. It should finish sometime in the 2170s. We will never see the whole rainbow.
 
 [See it in action over at @thewholerainbow][wholerainbow], or, for an even more colorful social media experience, [check out Blot're](https://blot.re).
@@ -12,7 +12,7 @@ I hope not. Their public API lacks the ability to upload images (WTF), so this s
 This is a fun little project that shouldn't bother anyone and improves the community. Just in case however, I recommend using a burner account if you plan on using the scripts found in this repo. If @thewholerainbow suddenly stops working, most likely someone at Instagram just hates rainbows.
 
 # Running
-If you notice that the @thewholerainbow has stopped uploading, feel free to use these scripts to continue its mission. The uploads are also tagged with `#wholerainbow` plus `#HEX_COLOR` so you can track what has been uploaded so far instead of starting from scratch.
+If you notice that the @thewholerainbow has stopped uploading, feel free to use these scripts to continue its mission. The uploads are also tagged with `#whole🌈` plus `#HEX_COLOR` so you can track what has been uploaded so far instead of starting from scratch.
 
 The main logic is `main.py`. When run, the script uploads a single color and then updates some persisted data and exits.
 

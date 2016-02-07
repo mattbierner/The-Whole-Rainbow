@@ -70,7 +70,7 @@ def post_the_rainbow(start_color, session):
         print("Out of rainbow")
         return
 
-    caption = "#{0:06x} #wholerainbow".format(color)
+    caption = "#{0:06x} #whole🌈".format(color)
     image_file = generate_image_file(color)
 
     if not DEBUG:
