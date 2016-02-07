@@ -43,17 +43,15 @@ def _generate_user_agent():
         ver,
     )
 
-
 class InstagramSession:
-
-    def __init__(self, session = requests.Session()):
-        self.guid = str(uuid.uuid1())
+    def __init__(self, session = requests.Session(), guid = None, user_agent = None):
+        self.guid = guid if guid else str(uuid.uuid1())
         self.device_id = 'android-{}'.format(self.guid)
         self.session = session
-        self.session.headers.update({'User-Agent': _generate_user_agent()})
+        self.user_agent = user_agent if user_agent else _generate_user_agent()
+        self.session.headers.update({'User-Agent': user_agent})
 
     def login(self, username, password):
-
         data = json.dumps({
             "device_id": self.device_id,
             "guid": self.guid,

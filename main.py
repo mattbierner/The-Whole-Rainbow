@@ -6,10 +6,13 @@ from PIL import Image
 import instagram
 from cookielib import LWPCookieJar
 import requests
+import json
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
 IMAGE_FILE = os.path.join(ROOT, 'color.jpg')
 DATA_FILE = os.path.join(ROOT, 'color.data')
+USER_FILE = os.path.join(ROOT, 'user.json')
+COOKIE_FILE = os.path.join(ROOT, 'cookiejar)
 
 INITIAL_COLOR = 0x0
 MAX_COLOR = 0xffffff
@@ -29,20 +32,35 @@ if len(sys.argv) > 2:
 else:
     password = os.environ.get('INSTAGRAM_USER_PASSWORD')
 
+def load_user_data():
+    if os.path.isfile(USER_FILE):
+        with open(USER_FILE, 'r') as data_file:
+            data = json.load(data_file)
+        return {
+            'guid': data.get('guid', None),
+            'user_agent': data.get('user_agent', None) }
+    return { 'guid': None, 'user_agent': None }
+
+def save_user_data(guid, user_agent):
+    with open(USER_FILE, 'w') as outfile:
+        json.dump({ 'guid': guid, 'user_agent': user_agent }, outfile)
 
 def initial_sesion(force_update=False):
     """Get Instagram session"""
     s = requests.Session()
-    s.cookies = LWPCookieJar('cookiejar')
-    if force_update or not os.path.isfile('cookiejar'):
-        session = instagram.InstagramSession(session=s)
+    s.cookies = LWPCookieJar(COOKIE_FILE)
+
+    user_data = load_user_data();
+    session = instagram.InstagramSession(session=s, guid=user_data['guid'], user_agent=user_data['user_agent'])
+    save_user_data(session.guid, session.usage_agent)
+    if force_update or not os.path.isfile(COOKIE_FILE):
         if not session.login(username, password):
             return None
         s.cookies.save()
         return session
     else:
         s.cookies.load(ignore_discard=True)
-    return instagram.InstagramSession(session=s)
+    return session
 
 def int_rgb_tuple(num):
     return ((num >> 16) & 0xff, (num >> 8) & 0xff, num & 0xff)
