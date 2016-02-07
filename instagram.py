@@ -49,7 +49,7 @@ class InstagramSession:
         self.device_id = 'android-{}'.format(self.guid)
         self.session = session
         self.user_agent = user_agent if user_agent else _generate_user_agent()
-        self.session.headers.update({'User-Agent': user_agent})
+        self.session.headers.update({'User-Agent': self.user_agent})
 
     def login(self, username, password):
         data = json.dumps({

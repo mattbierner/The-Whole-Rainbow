@@ -8,6 +8,7 @@ from cookielib import LWPCookieJar
 import requests
 import json
 
+# Persisted data files
 ROOT = os.path.dirname(os.path.realpath(__file__))
 IMAGE_FILE = os.path.join(ROOT, 'color.jpg')
 DATA_FILE = os.path.join(ROOT, 'color.data')
@@ -19,18 +20,6 @@ MAX_COLOR = 0xffffff
 
 # Disable actual uploads
 DEBUG = False
-
-username = None
-if len(sys.argv) > 2:
-    username = sys.argv[1]
-else:
-    username = os.environ.get('INSTAGRAM_USER_ID')
-
-password = None
-if len(sys.argv) > 2:
-    password = sys.argv[2]
-else:
-    password = os.environ.get('INSTAGRAM_USER_PASSWORD')
 
 def load_user_data():
     if os.path.isfile(USER_FILE):
@@ -45,7 +34,7 @@ def save_user_data(guid, user_agent):
     with open(USER_FILE, 'w') as outfile:
         json.dump({ 'guid': guid, 'user_agent': user_agent }, outfile)
 
-def initial_sesion(force_update=False):
+def initial_sesion(username, password, force_update=False):
     """Get Instagram session"""
     s = requests.Session()
     s.cookies = LWPCookieJar(COOKIE_FILE)
@@ -57,7 +46,6 @@ def initial_sesion(force_update=False):
         if not session.login(username, password):
             return None
         s.cookies.save()
-        return session
     else:
         s.cookies.load(ignore_discard=True)
     return session
@@ -92,6 +80,7 @@ def write_color_data(color):
         f.write("{0:06x}".format(color))
 
 def post_the_rainbow(start_color, session):
+    """Try to post the next color and update state."""
     color = start_color
     if color > MAX_COLOR:
         print("Out of rainbow")
@@ -117,12 +106,25 @@ def post_the_rainbow(start_color, session):
     write_color_data(color)
 
 def main():
+    username = None
+    if len(sys.argv) > 2:
+        username = sys.argv[1]
+    else:
+        username = os.environ.get('INSTAGRAM_USER_ID')
+
+    password = None
+    if len(sys.argv) > 2:
+        password = sys.argv[2]
+    else:
+        password = os.environ.get('INSTAGRAM_USER_PASSWORD')
+
     intial_color = get_initial_color()
-    session = initial_sesion()
+    session = initial_sesion(username, password)
     if initial_sesion is None:
         print("Error loging in to account")
         return
     post_the_rainbow(intial_color, session)
+
 
 if __name__ == "__main__":
     main()

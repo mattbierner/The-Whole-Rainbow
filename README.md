@@ -3,13 +3,13 @@ Script that uploads an image of every RGB color to Instagram. Configured to uplo
 
 [See it in action over at @thewholerainbow][wholerainbow], or, for an even more colorful social media experience, [check out Blot're](https://blot.re).
 
-**update Feb 7, 2016** - Continuing with [@thewholerainbow2][wholerainbow2] since first rainbow mysteriously stopped working after reaching `0x000038`. Can also track using [#whole🌈](https://www.instagram.com/explore/tags/whole🌈/).
+**update Feb 7, 2016** - Continuing with [@thewholerainbow2][wholerainbow2] since first rainbow mysteriously ended after reaching `0x000038`. Can also track using [#whole🌈](https://www.instagram.com/explore/tags/whole🌈/).
 
 #### Why don't the colors in the uploaded images exactly match the targeted hex values?
 Instagram takes jpeg images and performs some post processing that may alter the precise color values.
 
 #### Will Instagram have a problem with this?
-I hope not. Their public API lacks the ability to upload images (WTF), so this script makes use of an unofficial API to automate the upload process. The script is designed to run very slowly, and the uploaded images are extremely tiny, so it does not consume many resources at all.
+I hope not :) Their public API lacks the ability to upload images (WTF), so this script makes use of an unofficial API to automate the upload process. The script is designed to run very slowly, and the uploaded images are extremely tiny, so it does not consume many resources.
 
 This is a fun little project that shouldn't bother anyone and improves the community. Just in case however, I recommend using a burner account if you plan on using the scripts found in this repo. If @thewholerainbow suddenly stops working, most likely someone at Instagram just hates rainbows.
 
