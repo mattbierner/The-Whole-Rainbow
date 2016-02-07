@@ -86,7 +86,11 @@ def post_the_rainbow(start_color, session):
         media_id = session.upload_photo(image_file)
         if not media_id:
             print("Error uploading", color)
-            return
+            # try logging in again
+            sesion = get_initial_session(force_update=True)
+            media_id = session.upload_photo(image_file)
+            if not media_id:
+                return
         if not session.configure_photo(media_id, caption):
             print("Error posting", color)
             return
