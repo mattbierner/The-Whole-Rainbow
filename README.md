@@ -1,17 +1,11 @@
 # whole🌈
-Script that uploads an image of every RGB color to Instagram. Configured to upload a new color every five minutes, slowly working its way through all 16,777,216 24bit RGB colors. It should finish sometime in the 2170s. We will never see the whole rainbow.
+Script that uploads an image of every RGB color to ~Instagram~ Twitter. Configured to upload a new color every five minutes, slowly working its way through all 16,777,216 24bit RGB colors. It should finish sometime in the 2170s. We will never see the whole rainbow.
 
-[See it in action over at @thewholerainbow][wholerainbow], or, for an even more colorful social media experience, [check out Blot're](https://blot.re).
+[See latest version in action over at @wholerainbow][wholerainbow], or, for an even more colorful social media experience, [check out Blot're](https://blot.re).
+
+**update Feb 8, 2016** - Confirmed: Instagram hates rainbows. The script mysteriously stops and starts working, with the uploads succeeding but the images being instantly deleted. Switched over the Twitter instead since their public API is not so intentionally crippled. You can find the original Instagram logic in the [Instagram branch](https://github.com/mattbierner/The-Whole-Rainbow/tree/instagram).
 
 **update Feb 7, 2016** - Continuing with [@thewholerainbow2][wholerainbow2] since first rainbow mysteriously ended after reaching `0x000038`. Can also track using [#whole🌈](https://www.instagram.com/explore/tags/whole🌈/).
-
-#### Why don't the colors in the uploaded images exactly match the targeted hex values?
-Instagram takes jpeg images and performs some post processing that may alter the precise color values.
-
-#### Will Instagram have a problem with this?
-I hope not :) Their public API lacks the ability to upload images (WTF), so this script makes use of an unofficial API to automate the upload process. The script is designed to run very slowly, and the uploaded images are extremely tiny, so it does not consume many resources.
-
-This is a fun little project that shouldn't bother anyone and improves the community. Just in case however, I recommend using a burner account if you plan on using the scripts found in this repo. If @thewholerainbow suddenly stops working, most likely someone at Instagram just hates rainbows.
 
 # Running
 If you notice that the @thewholerainbow has stopped uploading, feel free to use these scripts to continue its mission. The uploads are also tagged with `#whole🌈`, `#HEX_COLOR` so you can track what has been uploaded so far instead of starting from scratch.
@@ -22,26 +16,27 @@ First, make sure you have all the require dependencies:
 
 ```bash
 $ pip install requests
+$ pip install TwitterAPI
 ```
 
-And make sure to set the following environment variables to give the script permission to upload to an Instagram account:
+Then [register an application with Twitter](http://dev.twitter.com). To give the script permission to post, set the following environment variables
 
 ```bash
-$ export INSTAGRAM_USER_ID="your user name"
-$ export INSTAGRAM_USER_PASSWORD="your password"
+$ export RAINBOW_TWITTER_CONSUMER_KEY="your consumer key"
+$ export RAINBOW_TWITTER_CONSUMER_SECRET="your consumer secret"
+$ export RAINBOW_TWITTER_ACCESS_TOKEN_KEY="your token key"
+$ export RAINBOW_TWITTER_ACCESS_TOKEN_SECRET="your token secret"
 ```
 
-Then just run the script, `$ python main.py`. The current (to be uploaded) color is saved to `color.data` as an hex color.
+Then just run the script, `$ python main.py`. You can also pass all the arguments on the command line instead of using environment variables: `$ python main.py "consumer_key" "consumer_secret" "token_key" "token_secret"`
+
+The current (to be uploaded) color is saved to `color.data` as an hex color.
 
 Run the script using cron to upload all the rainbow. Here's the config to run once every five minutes:
 
 ```
-*/5 * * * * /usr/bin/python thewholerainbow/main.py "USER_NAME" "PASSWORD"
+*/5 * * * * /usr/bin/python thewholerainbow/main.py "consumer_key" "consumer_secret" "token_key" "token_secret"
 ```
 
-# Credits
-Python Instagram uploader copied from https://github.com/lukecyca/python-instagram-upload
 
-
-[wholerainbow]: https://www.instagram.com/thewholerainbow/
-[wholerainbow2]: https://www.instagram.com/thewholerainbow2
+[wholerainbow]: https://www.twitter.com/wholerainbow/

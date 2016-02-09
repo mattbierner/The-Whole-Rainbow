@@ -3,52 +3,20 @@
 import os
 import sys
 from PIL import Image
-import instagram
-from cookielib import LWPCookieJar
 import requests
 import json
+from TwitterAPI import TwitterAPI
 
 # Persisted data files
 ROOT = os.path.dirname(os.path.realpath(__file__))
-IMAGE_FILE = os.path.join(ROOT, 'color.jpg')
+IMAGE_FILE = os.path.join(ROOT, 'color.png')
 DATA_FILE = os.path.join(ROOT, 'color.data')
-USER_FILE = os.path.join(ROOT, 'user.json')
-COOKIE_FILE = os.path.join(ROOT, 'cookiejar')
 
 INITIAL_COLOR = 0x0
 MAX_COLOR = 0xffffff
 
 # Disable actual uploads
-DEBUG = False
-
-def load_user_data():
-    if os.path.isfile(USER_FILE):
-        with open(USER_FILE, 'r') as data_file:
-            data = json.load(data_file)
-        return {
-            'guid': data.get('guid', None),
-            'user_agent': data.get('user_agent', None) }
-    return { 'guid': None, 'user_agent': None }
-
-def save_user_data(guid, user_agent):
-    with open(USER_FILE, 'w') as outfile:
-        json.dump({ 'guid': guid, 'user_agent': user_agent }, outfile)
-
-def initial_sesion(username, password, force_update=False):
-    """Get Instagram session"""
-    s = requests.Session()
-    s.cookies = LWPCookieJar(COOKIE_FILE)
-
-    user_data = load_user_data();
-    session = instagram.InstagramSession(session=s, guid=user_data['guid'], user_agent=user_data['user_agent'])
-    save_user_data(session.guid, session.user_agent)
-    if force_update or not os.path.isfile(COOKIE_FILE):
-        if not session.login(username, password):
-            return None
-        s.cookies.save()
-    else:
-        s.cookies.load(ignore_discard=True)
-    return session
+DEBUG = True
 
 def int_rgb_tuple(num):
     return ((num >> 16) & 0xff, (num >> 8) & 0xff, num & 0xff)
@@ -61,7 +29,7 @@ def generate_image(color):
 def generate_image_file(color):
     """Create a file for a solid image of color"""
     img = generate_image(color)
-    img.save(IMAGE_FILE, quality=100)
+    img.save(IMAGE_FILE)
     return IMAGE_FILE
 
 def get_initial_color():
@@ -79,7 +47,7 @@ def write_color_data(color):
     with open(DATA_FILE, 'w') as f:
         f.write("{0:06x}".format(color))
 
-def post_the_rainbow(start_color, session):
+def post_the_rainbow(start_color, api):
     """Try to post the next color and update state."""
     color = start_color
     if color > MAX_COLOR:
@@ -90,40 +58,35 @@ def post_the_rainbow(start_color, session):
     image_file = generate_image_file(color)
 
     if not DEBUG:
-        media_id = session.upload_photo(image_file)
-        if not media_id:
+        with open(IMAGE_FILE, 'rb') as f:
+            data = f.read()
+        
+        r = api.request('media/upload', None, {'media': data})
+        if r.status_code != 200:
             print("Error uploading", color)
-            # try logging in again
-            sesion = get_initial_session(force_update=True)
-            media_id = session.upload_photo(image_file)
-            if not media_id:
-                return
-        if not session.configure_photo(media_id, caption):
+            return
+
+        media_id = r.json()['media_id']
+        r = api.request('statuses/update', {'status': caption, 'media_ids': media_id})
+        if r.status_code != 200:
             print("Error posting", color)
             return
 
     color = color + 1
     write_color_data(color)
 
-def main():
-    username = None
-    if len(sys.argv) > 2:
-        username = sys.argv[1]
-    else:
-        username = os.environ.get('INSTAGRAM_USER_ID')
+def arg_or_env(index, name):
+    return sys.argv[1] if len(sys.argv) >= index else os.environ.get(name)
 
-    password = None
-    if len(sys.argv) > 2:
-        password = sys.argv[2]
-    else:
-        password = os.environ.get('INSTAGRAM_USER_PASSWORD')
+def main():
+    consumer_key = arg_or_env(1, 'RAINBOW_TWITTER_CONSUMER_KEY')
+    consumer_secret = arg_or_env(2, 'RAINBOW_TWITTER_CONSUMER_SECRET')
+    token_key = arg_or_env(3, 'RAINBOW_TWITTER_ACCESS_TOKEN_KEY')
+    token_secret = arg_or_env(4, 'RAINBOW_TWITTER_ACCESS_TOKEN_SECRET')
 
     intial_color = get_initial_color()
-    session = initial_sesion(username, password)
-    if initial_sesion is None:
-        print("Error loging in to account")
-        return
-    post_the_rainbow(intial_color, session)
+    api = TwitterAPI(consumer_key, consumer_secret, token_key, token_secret)
+    post_the_rainbow(intial_color, api)
 
 
 if __name__ == "__main__":
