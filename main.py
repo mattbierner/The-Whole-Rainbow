@@ -16,7 +16,7 @@ INITIAL_COLOR = 0x0
 MAX_COLOR = 0xffffff
 
 # Disable actual uploads
-DEBUG = True
+DEBUG = False
 
 def int_rgb_tuple(num):
     return ((num >> 16) & 0xff, (num >> 8) & 0xff, num & 0xff)
@@ -60,7 +60,7 @@ def post_the_rainbow(start_color, api):
     if not DEBUG:
         with open(IMAGE_FILE, 'rb') as f:
             data = f.read()
-        
+
         r = api.request('media/upload', None, {'media': data})
         if r.status_code != 200:
             print("Error uploading", color)
