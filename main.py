@@ -54,7 +54,7 @@ def post_the_rainbow(start_color, api):
         print("Out of rainbow")
         return
 
-    caption = "#{0:06x} #whole🌈".format(color)
+    caption = "#{0:06x} #wholerainbow".format(color)
     image_file = generate_image_file(color)
 
     if not DEBUG:
@@ -76,7 +76,7 @@ def post_the_rainbow(start_color, api):
     write_color_data(color)
 
 def arg_or_env(index, name):
-    return sys.argv[1] if len(sys.argv) >= index else os.environ.get(name)
+    return sys.argv[index] if len(sys.argv) >= index else os.environ.get(name)
 
 def main():
     consumer_key = arg_or_env(1, 'RAINBOW_TWITTER_CONSUMER_KEY')
