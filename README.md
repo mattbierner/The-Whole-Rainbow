@@ -39,4 +39,4 @@ Run the script using cron to upload all the rainbow. Here's the config to run on
 ```
 
 
-[wholerainbow]: https://www.twitter.com/wholerainbow/
+[wholerainbow]: https://twitter.com/wholerainbow
