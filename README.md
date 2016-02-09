@@ -1,9 +1,9 @@
 # whole🌈
-Script that uploads an image of every RGB color to ~Instagram~ Twitter. Configured to upload a new color every five minutes, slowly working its way through all 16,777,216 24bit RGB colors. It should finish sometime in the 2170s. We will never see the whole rainbow.
+Script that uploads an image of every RGB color to <strike>Instagram</strike> Twitter. Configured to upload a new color every five minutes, slowly working its way through all 16,777,216 24bit RGB colors. It should finish sometime in the 2170s. We will never see the whole rainbow.
 
 [See latest version in action over at @wholerainbow][wholerainbow], or, for an even more colorful social media experience, [check out Blot're](https://blot.re).
 
-**update Feb 8, 2016** - Confirmed: Instagram hates rainbows. The script mysteriously stops and starts working, with the uploads succeeding but the images being instantly deleted. Switched over the Twitter instead since their public API is not so intentionally crippled. You can find the original Instagram logic in the [Instagram branch](https://github.com/mattbierner/The-Whole-Rainbow/tree/instagram).
+**update Feb 8, 2016** - Confirmed: Instagram hates rainbows. The script mysteriously stops and starts working, with the uploads succeeding but the images being insta deleted. Switched over the Twitter instead since their public API is not so intentionally crippled. You can find the original Instagram logic in the [Instagram branch](https://github.com/mattbierner/The-Whole-Rainbow/tree/instagram).
 
 **update Feb 7, 2016** - Continuing with [@thewholerainbow2][wholerainbow2] since first rainbow mysteriously ended after reaching `0x000038`. Can also track using [#whole🌈](https://www.instagram.com/explore/tags/whole🌈/).
 
