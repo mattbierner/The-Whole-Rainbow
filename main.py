@@ -54,7 +54,7 @@ def post_the_rainbow(start_color, api):
         print("Out of rainbow")
         return
 
-    caption = "#{0:06x} #wholerainbow".format(color)
+    caption = "#x{0:06x} #wholerainbow".format(color)
     image_file = generate_image_file(color)
 
     if not DEBUG:

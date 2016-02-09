@@ -8,7 +8,7 @@ Script that uploads an image of every RGB color to <strike>Instagram</strike> Tw
 **update Feb 7, 2016** - Continuing with [@thewholerainbow2][wholerainbow2] since first rainbow mysteriously ended after reaching `0x000038`. Can also track using [#whole🌈](https://www.instagram.com/explore/tags/whole🌈/).
 
 # Running
-If you notice that the @thewholerainbow has stopped uploading, feel free to use these scripts to continue its mission. The uploads are also tagged with `#HEX_COLOR #wholerainbow` so you can track what has been uploaded so far instead of starting from scratch.
+If you notice that the @thewholerainbow has stopped uploading, feel free to use these scripts to continue its mission. The uploads are also tagged with `#xHEXCOLOR #wholerainbow` so you can track what has been uploaded so far instead of starting from scratch.
 
 The main logic is `main.py`. When run, the script uploads a single color and then updates some persisted data and exits.
 
